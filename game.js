@@ -5,6 +5,7 @@ document.addEventListener("DOMContentLoaded", () => {
     console.log("got here");
     canvas = document.querySelector("#myCanvas");
     context = canvas.getContext("2d");
+    console.log("test");
     main_menu();
 })
 
