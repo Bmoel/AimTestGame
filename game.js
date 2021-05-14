@@ -5,6 +5,7 @@ document.addEventListener("DOMContentLoaded", () => {
   console.log("got here");
   canvas = document.querySelector("#myCanvas");
   context = canvas.getContext("2d");
+  console.log("laptop update test");
   main_menu();
 })
 
@@ -12,7 +13,7 @@ document.addEventListener("click", game_click);
 
 function game_click(e) {
   console.log("click recieved");
-  
+
 }
 
 function main_menu() {
