@@ -1,11 +1,10 @@
 body {
-  padding: 150px;
   background: lightblue;
 }
 button {
   position: absolute;
-  top: 550px;
-  left: 675px;
+  top: 400px;
+  left: 540px;
   width: 300px;
   height: 150px;
   margin-top: 20px;

@@ -1,6 +1,11 @@
 let canvas;
 let context;
-let first_time = true;
+let target = {
+  x: 0,
+  y: 0
+}
+let score = 0;
+let unlocked = true;
 
 document.addEventListener("DOMContentLoaded", () => {
   canvas = document.querySelector("#myCanvas");
@@ -8,10 +13,16 @@ document.addEventListener("DOMContentLoaded", () => {
   main_menu();
 })
 
-document.addEventListener("click", game_click);
-
 function game_click(e) {
-  console.log("click recieved");
+  const [i,j] = [e.x,e.y];
+  console.log("click: " + "[" + i  + "," + j + "]" + " goal: " + "[" + target.x + "," + target.y + "]");
+  if (i > target.x && i < target.x + 100 && j > target.y && j < target.y + 100) {
+    console.log("success");
+    if (unlocked == true) {
+      score += 1000;
+      unlocked = false;
+    }
+  }
 }
 
 function main_menu() {
@@ -50,28 +61,38 @@ function print_instructions() {
 }
 
 function print_game() {
-  let seconds = 15;
+  document.addEventListener("click", game_click);
+  let seconds = 30;
   context.font = '30pt Candara';
-  if (first_time == true) {
-    let timer = setInterval(() => {
-      first_time = false;
-      context.clearRect(0,0,canvas.width,canvas.height);
-      context.fillText("Time left: " + seconds,570,50);
-      seconds -= 1;
-      if (seconds == 0) {
-        clearInterval(timer);
+  let timer = setInterval(() => {
+    unlocked = true;
+    context.clearRect(0,0,canvas.width,canvas.height);
+    object_placer();
+    context.fillText("Time left: " + Math.floor(seconds/2),400,50);
+    context.fillText("Score: " + score, 850, 50);
+    seconds -= 1;
+    if (seconds == 0) {
+      clearInterval(timer);
+      setTimeout(() => {
         context.clearRect(0,0,canvas.width,canvas.height);
         game_over();
-      }
-    },1000)
-  }
-  
+      },500)
+    }
+  },500)
+}
+
+function object_placer() {
+  target.x = Math.floor(Math.random() * (1300 - 100) + 100);
+  target.y = Math.floor(Math.random() * (700 - 100) + 100);
+  context.beginPath();
+  context.moveTo(target.x,target.y);
+  context.lineTo(target.x + 100, target.y);
+  context.lineTo(target.x + 100, target.y + 100);
+  context.lineTo(target.x, target.y + 100);
+  context.lineTo(target.x, target.y);
+  context.stroke();
 }
 
 function game_over() {
   console.log("got to game over");
-}
-
-function tick() {
-    window.requestAnimationFrame(print_game);
 }
