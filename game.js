@@ -94,5 +94,25 @@ function object_placer() {
 }
 
 function game_over() {
-  console.log("got to game over");
+  document.removeEventListener("click", game_click);
+  context.font = "60pt Candara"
+  context.fillText("Game Over", 500, 200);
+  context.fillText("Your Score: " + score, 400, 340);
+  var button = document.createElement("button");
+  button.innerHTML = "Play Again";
+  var body = document.getElementsByTagName("body")[0];
+  body.appendChild(button);
+  button.addEventListener("click", () => {
+    context.clearRect(0,0,canvas.width,canvas.height);
+    body.removeChild(button);
+    reset();
+  })
+}
+
+function reset() {
+  target.x = 0;
+  target.y = 0;
+  score = 0;
+  unlocked = true;
+  main_menu();
 }

@@ -1,6 +1,7 @@
 body {
   background: lightblue;
 }
+
 button {
   position: absolute;
   top: 400px;
@@ -15,6 +16,7 @@ button {
   background: salmon;
   border: none;
 }
+
 button:hover {
   background: rgb(97, 116, 224);
  }
